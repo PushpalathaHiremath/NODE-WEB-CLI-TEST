@@ -19,14 +19,14 @@ var myLogger = logging.MustGetLogger("Node-Web-Client-Test")
 type ServicesChaincode struct {
 }
 
-func (t *ServicesChaincode) Init(stub *shim.ChaincodeStub, function string, args []string) ([]byte, error) {
+func (t *ServicesChaincode) Init(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
 	myLogger.Debug("Hello, Init stared . . . ")
 	err := stub.PutState("counter", []byte("0"))
 	return nil, err
 }
 
 
-func (t *ServicesChaincode) Invoke(stub *shim.ChaincodeStub, function string, args []string) ([]byte, error) {
+func (t *ServicesChaincode) Invoke(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
 	if function == "abc" {
 // 		stub.PutState("counter", counter)
 		val1, err := stub.ReadCertAttribute("role")
@@ -42,7 +42,7 @@ func (t *ServicesChaincode) Invoke(stub *shim.ChaincodeStub, function string, ar
 /*
  		Get Customer record by customer id or PAN number
 */
-func (t *ServicesChaincode) Query(stub *shim.ChaincodeStub, function string, args []string) ([]byte, error) {
+func (t *ServicesChaincode) Query(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
 	if function == "read" {
 		return read(stub, args)
 	}
@@ -50,7 +50,7 @@ func (t *ServicesChaincode) Query(stub *shim.ChaincodeStub, function string, arg
 }
 
 
-func read(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
+func read(stub shim.ChaincodeStubInterface, args []string) ([]byte, error) {
 	var err error
 	// Get the state from the ledger
 	Avalbytes, err := stub.GetState("counter")
