@@ -32,7 +32,7 @@ func (t *ServicesChaincode) Invoke(stub *shim.ChaincodeStub, function string, ar
 		val1, err := stub.ReadCertAttribute("role")
 		myLogger.Debug("Role : [%s]", val1)
 		val2, err := stub.ReadCertAttribute("account")
-		myLogger.Debug("Role : [%s]", account)
+		myLogger.Debug("Role : [%s]", val2)
 		
 		stub.PutState("counter", []byte("1"))
 	}
